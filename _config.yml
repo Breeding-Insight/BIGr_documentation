@@ -98,7 +98,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: "https://private-user-images.githubusercontent.com/39815775/373957547-2168c801-fcee-4999-b04e-f7b01fed9cfa.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTAxOTA5MTEsIm5iZiI6MTc1MDE5MDYxMSwicGF0aCI6Ii8zOTgxNTc3NS8zNzM5NTc1NDctMjE2OGM4MDEtZmNlZS00OTk5LWIwNGUtZjdiMDFmZWQ5Y2ZhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA2MTclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNjE3VDIwMDMzMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTNmMWFkOTI0M2E3N2I5MmY1ZDlkMjZmNDIxNTk5ZDdhNDRmYjZkZmM3MmUwZTdmMGE0NjJlZjhiZjNiNjE3NDMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.j0rZ2KNa24JoYpjJerWhgz-xPLaaNyelFP9sLq5YW1w"
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
