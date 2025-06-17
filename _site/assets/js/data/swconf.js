@@ -1,16 +1,16 @@
 const swconf = {
   
-    cacheName: 'chirpy-1750179223',resources: [
-      '/breeding-insight.github.io/BIGr/assets/css/jekyll-theme-chirpy.css',
-      '/breeding-insight.github.io/BIGr/',
+    cacheName: 'chirpy-1750183102',resources: [
+      '/BIGr_documentation/assets/css/jekyll-theme-chirpy.css',
+      '/BIGr_documentation/',
       
-        '/breeding-insight.github.io/BIGr/categories/',
+        '/BIGr_documentation/categories/',
       
-        '/breeding-insight.github.io/BIGr/tags/',
+        '/BIGr_documentation/tags/',
       
-        '/breeding-insight.github.io/BIGr/archives/',
+        '/BIGr_documentation/archives/',
       
-        '/breeding-insight.github.io/BIGr/about/',
+        '/BIGr_documentation/about/',
       
 
       
