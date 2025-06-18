@@ -4,19 +4,67 @@
   <id>http://localhost:4000/BIGr_documentation/</id>
   <title>BIGr</title>
   <subtitle>This R package contains the functions developed within Breeding Insight to analyze diploid and polyploid breeding and genetic data.</subtitle>
-  <updated>2025-06-17T13:58:21-04:00</updated>
+  <updated>2025-06-18T14:28:57-04:00</updated>
   <author>
-    <name>your_full_name</name>
+    <name>Breeding Insight</name>
     <uri>http://localhost:4000/BIGr_documentation/</uri>
   </author>
   <link rel="self" type="application/atom+xml" href="http://localhost:4000/BIGr_documentation/feed.xml"/>
   <link rel="alternate" type="text/html" hreflang="en"
     href="http://localhost:4000/BIGr_documentation/"/>
   <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
-  <rights> © 2025 your_full_name </rights>
+  <rights> © 2025 Breeding Insight </rights>
   <icon>/BIGr_documentation/assets/img/favicons/favicon.ico</icon>
   <logo>/BIGr_documentation/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Processing MADC Genotype Data</title>
+    <link href="http://localhost:4000/BIGr_documentation/posts/madc-data-processing/" rel="alternate" type="text/html" title="Processing MADC Genotype Data" />
+    <published>2025-06-18T03:13:00-04:00</published>
+  
+    <updated>2025-06-18T03:13:00-04:00</updated>
+  
+    <id>http://localhost:4000/BIGr_documentation/posts/madc-data-processing/</id>
+    <content type="text/html" src="http://localhost:4000/BIGr_documentation/posts/madc-data-processing/" />
+    <author>
+      <name>alex</name>
+    </author>
+
+  
+    
+    <category term="Genotype Processing" />
+    
+  
+
+  <summary>Processing MADC data to filter low quality microhaplotypes and convert to a VCF format with biallelic SNPs</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>MADC File Format</title>
+    <link href="http://localhost:4000/BIGr_documentation/posts/madc-file-format/" rel="alternate" type="text/html" title="MADC File Format" />
+    <published>2025-06-18T01:46:00-04:00</published>
+  
+    <updated>2025-06-18T01:46:00-04:00</updated>
+  
+    <id>http://localhost:4000/BIGr_documentation/posts/madc-file-format/</id>
+    <content type="text/html" src="http://localhost:4000/BIGr_documentation/posts/madc-file-format/" />
+    <author>
+      <name>alexcris</name>
+    </author>
+
+  
+    
+    <category term="File Formats" />
+    
+  
+
+  <summary>Description of the DArT MADC file</summary>
+
+  </entry>
 
 </feed>
 
