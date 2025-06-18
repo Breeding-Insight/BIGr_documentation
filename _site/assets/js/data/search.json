@@ -1,4 +1,20 @@
 [
+  {
+    "title": "Processing MADC Genotype Data",
+    "url": "/BIGr_documentation/posts/madc-data-processing/",
+    "categories": "Genotype Processing",
+    "tags": "madc, filtering",
+    "date": "2025-06-18 03:13:00 -0400",
+    "content": "Processing MADC data to filter low quality microhaplotypes and convert to a VCF format with biallelic SNPs"
+  },
+  {
+    "title": "MADC File Format",
+    "url": "/BIGr_documentation/posts/madc-file-format/",
+    "categories": "File Formats",
+    "tags": "madc",
+    "date": "2025-06-18 01:46:00 -0400",
+    "content": "Description of the DArT MADC file"
+  }
   
 ]
 
