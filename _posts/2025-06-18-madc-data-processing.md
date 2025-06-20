@@ -145,7 +145,7 @@ bot_file <- system.file("example_SNPs_DArTag-probe-design_f180bp.botloci", packa
 db_file <- system.file("example_allele_db.fa", package="BIGr")
 
 #Temp output file location for the VCF file
-temp <- "extracted_madc_snps.vcf"
+temp <- tempfile(fileext = ".vcf")
 
 #Extracting the SNPs
 madc2vcf_all(madc = madc_file,
@@ -169,9 +169,6 @@ The previous step generates a VCF file with biallelic SNPs, but it does not incl
 
 First, we need to extract the reference (RA) and the total depth (DP) value from each SNP in the VCF file.
 ```R
-#Get the path to the VCF file with read count information
-vcf_file <- "extracted_madc_snps.vcf"
-
 #Initialize matrices list
 matrices <- list()
 
@@ -195,12 +192,10 @@ print(matrices$ref_matrix[1:5, 1:5])
 
 Now that we have the read count values in two separate matrices, we can use the `updog` package to calculate the dosages. The `multidog` function from `updog` will perform this calculation, and we can specify the ploidy level of the species. For more detailed information about the `updog` package, please refer to its documentation.
 ```R
-# Estimating the dosage values from the read count data with Updog
-# Note: Updog will take longer to run to completion with more SNPs being evaluated. Increase the nc "cores"
-# value if the resources are available to speed up the analysis.
+
 mout <- updog::multidog(refmat = matrices$ref_matrix,
                         sizemat = matrices$size_matrix,
-                        ploidy = 2,
+                        ploidy = as.numeric(ploidy),
                         model = "norm",
                         nc = 5)
 
