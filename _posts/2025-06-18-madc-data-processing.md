@@ -51,6 +51,7 @@ We need to load the packages that we will be using for this tutorial
 library(BIGr)
 library(updog)
 library(readr)
+library(vcfR)
 ```
 
 We will be working with an example MADC file that is provided with the `BIGr` package.
@@ -164,40 +165,76 @@ readLines(temp, n = 10)
 
 ## Calculating Dosages
 
-Updog dosage calling
+The previous step generates a VCF file with biallelic SNPs, but it does not include dosage information. To calculate dosages, we can use the `updog` package, which is designed for this purpose.
+
+First, we need to extract the reference (RA) and the total depth (DP) value from each SNP in the VCF file.
+```R
+#Initialize matrices list
+matrices <- list()
+
+#Import genotype information if in VCF format
+vcf <- read.vcfR(vcf_file, verbose = FALSE)
+
+#Extract DP and RA and convert to matrices
+matrices$size_matrix <- extract.gt(vcf, element = "DP")
+matrices$ref_matrix <- extract.gt(vcf, element = "RA")
+class(matrices$size_matrix) <- "numeric"
+class(matrices$ref_matrix) <- "numeric"
+#Assign the row names as the concatenated chromosome and position values
+rownames(matrices$size_matrix) <- rownames(matrices$ref_matrix) <- paste0(chrom, "_", pos)
+
+rm(vcf) #Remove VCF
+
+# View the format of each matrix
+print(matrices$size_matrix[1:5, 1:5])
+print(matrices$ref_matrix[1:5, 1:5])
+```
+
+Now that we have the read count values in two separate matrices, we can use the `updog` package to calculate the dosages. The `multidog` function from `updog` will perform this calculation, and we can specify the ploidy level of the species. For more detailed information about the `updog` package, please refer to its documentation.
+```R
+
+mout <- updog::multidog(refmat = matrices$ref_matrix,
+                        sizemat = matrices$size_matrix,
+                        ploidy = as.numeric(ploidy),
+                        model = "norm",
+                        nc = 5)
+
+```
+
+Finally, we can use the `BIGr::updog2vcf` function to convert the `updog` output into a VCF file format. This function will create a VCF file that includes the dosage information calculated by `updog` and the associated statistics that will be useful for quality filtering.
+```R
+# Convert updog to VCF
+updog2vcf(
+    multidog.object = mout,
+    output.file = "updog_output.vcf.gz",
+    updog_version = packageVersion("updog"),
+    compress = TRUE
+  )
+```
 
 
 
 ## Filtering VCF Files
 
-After generating a VCF file, the next step is typically to filter it to remove low-quality SNPs and samples. The `filterVCF` function offers several filtering parameters based on common quality metrics.
+After generating a VCF file, the next step is typically to filter it to remove low-quality SNPs and samples. The `filterVCF` function offers several filtering parameters based on common quality metrics. 
 
-### Example: Filtering by MAF and OD
-
-Here, we'll filter a VCF file to remove SNPs with a Minor Allele Frequency (MAF) below 0.05 and an `updog` Overdispersion (OD) filter greater than 0.5.
-
+### Example: Filtering a VCF File with `filterVCF`
+Here, we'll filter a VCF file to remove SNPs with a Minor Allele Frequency (MAF) below 0.01, an `updog` Overdispersion (OD) filter greater than 0.5, and a missing data threshold of 50% for both SNPs and samples. This ensures that we retain only high-quality data for further analysis.
 ```R
-# Path to an example VCF file included in the package
-vcf_path <- system.file("iris_DArT_VCF.vcf.gz", package = "BIGr")
-
-# Define path for the filtered output file
-filtered_output_path <- tempfile(fileext = ".vcf.gz")
-
-# Apply filters
 filterVCF(
-  vcf.file = vcf_path,
-  filter.OD = 0.5,
-  filter.MAF = 0.05,
-  ploidy = 2,
-  output.file = filtered_output_path
+  vcf.file = "updog_output.vcf.gz",
+  filter.OD = 0.5,          # Updog Overdispersion filter
+  filter.MAF = 0.01,        # Minor Allele Frequency filter
+  filter.SNP.miss = 0.5,    # Missing SNP data filter
+  filter.SAMPLE.miss = 0.5, # Missing sample data filter
+  ploidy = 2,               # Ploidy level of the species
+  output.file = "filtered_output.vcf.gz" # Output file path
 )
-
-# The filtered VCF is now saved to the path specified in 'output.file'
 ```
 
 ## Quality Control
 
-`BIGr` includes functions to assess the quality of your genotype data, such as checking for sample mislabeling and evaluating pedigree accuracy.
+`BIGr` includes functions to assess the quality of your genotype data, such as checking for sample mislabeling.
 
 ### Checking Replicates and Sample Compatibility
 
@@ -205,10 +242,12 @@ The `check_replicates` function assesses the compatibility between all pairs of 
 
 ```R
 # Path to an example VCF file
-example_vcf <- system.file("iris_DArT_VCF.vcf.gz", package = "BIGr")
+example_vcf <- "filtered_output.vcf.gz"
 
 # Run the replicate check on the first 10 samples for this example
-check_tab <- check_replicates(path.vcf = example_vcf, select_samples = paste0("Sample_", 1:10))
+check_tab <- check_replicates(path.vcf = example_vcf,
+                              select_samples = NULL,
+                              verbose = TRUE)
 
 # Display the first few rows of the results
 head(check_tab)
@@ -216,41 +255,6 @@ head(check_tab)
 
 The output table shows the percentage of matching and missing genotypes for each sample pair, allowing you to identify pairs with unexpectedly high or low concordance.
 
-## Calculating Genotype Statistics
-
-Once you have a clean dataset, you can calculate various summary statistics to understand its properties.
-
-### Calculating Minor Allele Frequency (MAF)
-
-The `calculate_MAF` function computes the allele frequency (AF) and minor allele frequency (MAF) for each marker in a genotype matrix.
-
-```R
-# Create an example genotype matrix for a diploid species
-geno_matrix <- data.frame(
-  Sample1 = c(0, 1, 2, NA, 0),
-  Sample2 = c(1, 1, 2, 0, NA),
-  Sample3 = c(0, 1, 1, 0, 2),
-  Sample4 = c(0, 0, 1, 1, NA)
-)
-row.names(geno_matrix) <- c("Marker1", "Marker2", "Marker3", "Marker4", "Marker5")
-ploidy <- 2
-
-# Calculate allele frequencies
-maf_results <- calculate_MAF(geno_matrix, ploidy)
-
-print(maf_results)
-```
-
-### Calculating Observed Heterozygosity
-
-The `calculate_Het` function computes the observed heterozygosity for each sample.
-
-```R
-# Using the same genotype matrix from the previous example
-het_results <- calculate_Het(geno_matrix, ploidy)
-
-print(het_results)
-```
 
 ## Conclusion
 
