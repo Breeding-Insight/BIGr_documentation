@@ -1,5 +1,6 @@
 ---
-layout: categories
-icon: fas fa-stream
+Title: Tutorials
+layout: tutorials
+icon: fas fa-book-reader
 order: 2
 ---
