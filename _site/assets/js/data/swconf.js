@@ -1,6 +1,6 @@
 const swconf = {
   
-    cacheName: 'chirpy-1750856108',resources: [
+    cacheName: 'chirpy-1750859580',resources: [
       '/BIGr_documentation/assets/css/jekyll-theme-chirpy.css',
       '/BIGr_documentation/',
       
@@ -9,8 +9,6 @@ const swconf = {
         '/BIGr_documentation/tutorials/',
       
         '/BIGr_documentation/faq/',
-      
-        '/BIGr_documentation/polyploid_pipelines/',
       
         '/BIGr_documentation/tags/',
       
