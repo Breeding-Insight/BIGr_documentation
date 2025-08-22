@@ -1,9 +1,9 @@
 ---
 title: "Deploying BIGapp with Docker"
-description:"Run BIGapp without the need of installing any of its dependencies"
-date: 2025-08-22 04:00:00 +0500
+description: "Run BIGapp without the need of installing any of its dependencies"
+date: 2025-08-22 10:00:00 +0500
 categories: [installation]
-tags: [bigapp, install]
+tags: [install]
 layout: post
 author: cris
 mermaid: true
