@@ -1,7 +1,7 @@
 ---
 title: "Deploying BIGapp with Docker/singularity"
 description:"Access BIGapp interface using BIGapp's Docker image stored at DockerHub"
-date: 2025-08-22
+date: 2025-08-22 04:00:00 +0500
 categories: [installation]
 tags: [bigapp, install]
 layout: post
