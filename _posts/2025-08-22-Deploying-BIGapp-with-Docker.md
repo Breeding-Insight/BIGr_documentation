@@ -3,13 +3,32 @@ title: "Deploying BIGapp with Docker/singularity"
 description:"Access BIGapp interface using BIGapp's Docker image stored at DockerHub"
 date: 2025-08-22
 categories: [installation]
-tags: [BIGapp, install]
+tags: [bigapp, install]
 layout: post
 author: cris
 mermaid: true
 ---
 
-ab and one you want (e.g., latest or a version like v1.5.1).
+## What are Docker containers?
+
+Docker containers bundle an application together with all its dependencies (system libraries, R packages, config) into a portable image. That means:
+
+* Reproducibility: everyone runs the same environment—no "works on my machine."
+* Fast setup: skip lengthy installs; just pull and run.
+* Portability: run the same image on laptops, servers, or HPC via Apptainer/Singularity.
+* Isolation: avoid conflicts with other software on the host.
+
+## Overview
+
+We maintain a Docker image for BIGapp that updates automatically whenever the package is updated on GitHub. Using the image ensures the app and all dependencies are exactly as intended, saving installation time and improving reproducibility. It also makes it easy to run BIGapp on HPC systems to speed up analyses.
+
+Below are three ways to access BIGapp via containers.
+
+## Local (Docker Desktop GUI)
+
+1. Open Docker Desktop → Docker Hub (left sidebar).
+2. In the search box, type: breedinginsight/bigapp and open it.
+3. Go to the tag tab and one you want (e.g., latest or a version like v1.5.1).
 4. Click Pull and wait for it to complete.
 
 Now it will appear under Images:
